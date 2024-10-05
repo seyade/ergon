@@ -2,8 +2,6 @@
 
 ## Manage your project like a G.
 
-### Fullstack
-
 This project uses:
 
 - Next.js
