@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
-
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+
 import Sidebar from "./Sidebar";
 
 jest.mock("react-redux", () => ({
