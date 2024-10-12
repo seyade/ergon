@@ -5,6 +5,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 
+import { config } from "./config";
+
 import projectRoutes from "./routes/project.route";
 
 dotenv.config();
@@ -26,6 +28,6 @@ app.get("/", (req, res) => {
 
 app.use("/projects", projectRoutes);
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => console.log(`Ergon server running on port ${PORT}`));
+app.listen(config.PORT, () =>
+  console.log(`Ergon server running on port ${config.PORT}`)
+);
