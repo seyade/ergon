@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export const getProjects = async (req: Request, res: Response) => {
   try {
     const projects = await prisma.project.findMany();
-    res.json(projects);
+    res.status(200).json(projects);
   } catch (error: any) {
     res.status(500).json({ error: `Error getting projects: ${error.message}` });
   }
