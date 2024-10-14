@@ -20,18 +20,21 @@ jest.mock("../../prisma/client", () => ({
         findMany: jest.fn(),
     },
 }));
-describe("GET /projects", () => {
-    it("should return a list of projects", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app_1.default).get("/projects").expect(200);
+describe("GET /tasks", () => {
+    it("should return a list of tasks related to a project", () => __awaiter(void 0, void 0, void 0, function* () {
+        const projectId = 11;
+        const response = yield (0, supertest_1.default)(app_1.default)
+            .get(`/tasks?projectId=${projectId}`)
+            .expect(200);
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Array);
     }));
-    it.skip("should throw an error when fails to return projects list", () => __awaiter(void 0, void 0, void 0, function* () {
+    it.skip("should throw an error when it fails to return task list", () => __awaiter(void 0, void 0, void 0, function* () {
         client_1.default.project.findMany
             .mockImplementation()
-            .mockRejectedValue(new Error("Error getting projects"));
-        const response = yield (0, supertest_1.default)(app_1.default).get("/projects").expect(500);
+            .mockRejectedValue(new Error("Error getting tasks list"));
+        const response = yield (0, supertest_1.default)(app_1.default).get("/tasks").expect(500);
         expect(response.status).toBe(500);
-        expect(response.body).toEqual({ error: "Error getting projects" });
+        expect(response.body).toEqual({ error: "Error getting tasks lists" });
     }));
 });

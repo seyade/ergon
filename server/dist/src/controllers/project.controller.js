@@ -26,7 +26,12 @@ const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const { name, description, startDate, endDate } = req.body;
     try {
         const newProject = yield prisma.project.create({
-            data: { name, description, startDate, endDate },
+            data: {
+                name,
+                description,
+                startDate,
+                endDate,
+            },
         });
         res.status(201).json(newProject);
     }

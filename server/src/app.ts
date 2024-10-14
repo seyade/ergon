@@ -6,6 +6,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import projectRoutes from "./routes/project.route";
+import taskRoutes from "./routes/task.route";
 
 dotenv.config();
 
@@ -21,9 +22,10 @@ app.use(cors());
 
 // TODO: Routes
 app.get("/", (req, res) => {
-  res.send("Welecome to Ergon");
+  res.send({ message: "Welecome to Ergon", version: "0.0.1" });
 });
 
 app.use("/projects", projectRoutes);
+app.use("/tasks", taskRoutes);
 
 export default app;

@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const project_route_1 = __importDefault(require("./routes/project.route"));
+const task_route_1 = __importDefault(require("./routes/task.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -21,7 +22,8 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)());
 // TODO: Routes
 app.get("/", (req, res) => {
-    res.send("Welecome to Ergon");
+    res.send({ message: "Welecome to Ergon", version: "0.0.1" });
 });
 app.use("/projects", project_route_1.default);
+app.use("/tasks", task_route_1.default);
 exports.default = app;
