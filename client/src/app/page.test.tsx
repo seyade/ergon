@@ -14,7 +14,7 @@ jest.mock("react-redux", () => ({
 describe("Home", () => {
   const mockedDispatch = jest.fn();
 
-  (mockedDispatch as jest.Mock).mockReturnValue(mockedDispatch);
+  (useDispatch() as jest.Mock).mockReturnValue(mockedDispatch);
 
   it("should render", () => {
     render(<Home />);
