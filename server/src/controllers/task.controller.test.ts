@@ -62,9 +62,7 @@ describe("GET /tasks", () => {
     (prisma as any).task.findMany.mockRejectedValue(
       new Error(MOCK_SERVER_ERR_MESSAGE)
     );
-    const response = await request(app)
-      .get(`/tasks?projectId=${projectId}`)
-      .expect(500);
+    const response = await request(app).get(`/tasks?projectId=${projectId}`);
     expect(response.status).toBe(500);
     expect(response.body).toEqual({
       error: `Error getting tasks list: ${MOCK_SERVER_ERR_MESSAGE}`,

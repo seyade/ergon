@@ -68,9 +68,7 @@ describe("GET /tasks", () => {
         const projectId = 11;
         const MOCK_SERVER_ERR_MESSAGE = "Some server error";
         client_1.default.task.findMany.mockRejectedValue(new Error(MOCK_SERVER_ERR_MESSAGE));
-        const response = yield (0, supertest_1.default)(app_1.default)
-            .get(`/tasks?projectId=${projectId}`)
-            .expect(500);
+        const response = yield (0, supertest_1.default)(app_1.default).get(`/tasks?projectId=${projectId}`);
         expect(response.status).toBe(500);
         expect(response.body).toEqual({
             error: `Error getting tasks list: ${MOCK_SERVER_ERR_MESSAGE}`,
