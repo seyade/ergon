@@ -8,14 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTaskStatus = exports.createTask = exports.getTasks = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const client_1 = __importDefault(require("../../prisma/client"));
 const getTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { projectId } = req.query;
     try {
-        const tasks = yield prisma.task.findMany({
+        const tasks = yield client_1.default.task.findMany({
             where: { projectId: Number(projectId) },
             include: {
                 author: true,
@@ -36,7 +38,7 @@ exports.getTasks = getTasks;
 const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, status, priority, tags, startDate, dueDate, points, projectId, authorUserId, assignedUserId, } = req.body;
     try {
-        const response = yield prisma.task.create({
+        const response = yield client_1.default.task.create({
             data: {
                 title,
                 description,
@@ -62,7 +64,7 @@ const updateTaskStatus = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const { taskId } = req.params;
     const { status } = req.body;
     try {
-        const updatedTask = yield prisma.task.update({
+        const updatedTask = yield client_1.default.task.update({
             where: { id: Number(taskId) },
             data: {
                 status,

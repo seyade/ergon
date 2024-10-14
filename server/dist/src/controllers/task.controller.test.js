@@ -16,25 +16,64 @@ const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../app"));
 const client_1 = __importDefault(require("../../prisma/client"));
 jest.mock("../../prisma/client", () => ({
-    project: {
-        findMany: jest.fn(),
+    __esModule: true,
+    default: {
+        task: {
+            findMany: jest.fn(),
+        },
     },
 }));
 describe("GET /tasks", () => {
+    const mockedTasksData = [
+        {
+            id: 42,
+            title: "Task One",
+            description: "Task One",
+            status: "To Do",
+            priority: "High",
+            tags: "Deployment",
+            startDate: null,
+            dueDate: null,
+            points: null,
+            projectId: 11,
+            authorUserId: 1,
+            assignedUserId: 2,
+        },
+        {
+            id: 43,
+            title: "Task Two",
+            description: "Task Two",
+            status: "Work In Progress",
+            priority: "High",
+            tags: "Deployment",
+            startDate: null,
+            dueDate: null,
+            points: null,
+            projectId: 11,
+            authorUserId: 1,
+            assignedUserId: 2,
+        },
+    ];
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
     it("should return a list of tasks related to a project", () => __awaiter(void 0, void 0, void 0, function* () {
+        client_1.default.task.findMany.mockResolvedValue(mockedTasksData);
         const projectId = 11;
-        const response = yield (0, supertest_1.default)(app_1.default)
-            .get(`/tasks?projectId=${projectId}`)
-            .expect(200);
+        const response = yield (0, supertest_1.default)(app_1.default).get(`/tasks?projectId=${projectId}`);
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Array);
     }));
-    it.skip("should throw an error when it fails to return task list", () => __awaiter(void 0, void 0, void 0, function* () {
-        client_1.default.project.findMany
-            .mockImplementation()
-            .mockRejectedValue(new Error("Error getting tasks list"));
-        const response = yield (0, supertest_1.default)(app_1.default).get("/tasks").expect(500);
+    it("should throw an error when it fails to return task list", () => __awaiter(void 0, void 0, void 0, function* () {
+        const projectId = 11;
+        const MOCK_SERVER_ERR_MESSAGE = "Some server error";
+        client_1.default.task.findMany.mockRejectedValue(new Error(MOCK_SERVER_ERR_MESSAGE));
+        const response = yield (0, supertest_1.default)(app_1.default)
+            .get(`/tasks?projectId=${projectId}`)
+            .expect(500);
         expect(response.status).toBe(500);
-        expect(response.body).toEqual({ error: "Error getting tasks lists" });
+        expect(response.body).toEqual({
+            error: `Error getting tasks list: ${MOCK_SERVER_ERR_MESSAGE}`,
+        });
     }));
 });

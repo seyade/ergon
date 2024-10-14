@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-const prisma = new PrismaClient();
+import prisma from "../../prisma/client";
 
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
   const { projectId } = req.query;

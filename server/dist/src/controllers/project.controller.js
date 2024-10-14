@@ -8,13 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createProject = exports.getProjects = void 0;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const client_1 = __importDefault(require("../../prisma/client"));
 const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const projects = yield prisma.project.findMany();
+        const projects = yield client_1.default.project.findMany();
         res.status(200).json(projects);
     }
     catch (error) {
@@ -25,7 +27,7 @@ exports.getProjects = getProjects;
 const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, description, startDate, endDate } = req.body;
     try {
-        const newProject = yield prisma.project.create({
+        const newProject = yield client_1.default.project.create({
             data: {
                 name,
                 description,
