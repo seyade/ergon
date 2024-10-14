@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createProject = exports.getProjects = void 0;
-const client_1 = __importDefault(require("../../prisma/client"));
+const prismaClient_1 = __importDefault(require("../config/prismaClient"));
 const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const projects = yield client_1.default.project.findMany();
+        const projects = yield prismaClient_1.default.project.findMany();
         res.status(200).json(projects);
     }
     catch (error) {
@@ -27,7 +27,7 @@ exports.getProjects = getProjects;
 const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, description, startDate, endDate } = req.body;
     try {
-        const newProject = yield client_1.default.project.create({
+        const newProject = yield prismaClient_1.default.project.create({
             data: {
                 name,
                 description,

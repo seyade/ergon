@@ -1,8 +1,8 @@
 import request from "supertest";
 import app from "../app";
-import prisma from "../../prisma/client";
+import prisma from "../config/prismaClient";
 
-jest.mock("../../prisma/client", () => ({
+jest.mock("../config/prismaClient", () => ({
   __esModule: true,
   default: {
     task: {

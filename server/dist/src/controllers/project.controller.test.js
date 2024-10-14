@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../app"));
-jest.mock("../../prisma/client", () => ({
+jest.mock("../config/prismaClient", () => ({
     __esModule: true,
     default: {
         project: {
@@ -22,7 +22,7 @@ jest.mock("../../prisma/client", () => ({
         },
     },
 }));
-const client_1 = __importDefault(require("../../prisma/client"));
+const prismaClient_1 = __importDefault(require("../config/prismaClient"));
 describe("GET /projects", () => {
     const mockedProjectsData = [
         {
@@ -44,16 +44,16 @@ describe("GET /projects", () => {
         jest.clearAllMocks();
     });
     it("should return a list of projects", () => __awaiter(void 0, void 0, void 0, function* () {
-        client_1.default.project.findMany.mockResolvedValue(mockedProjectsData);
+        prismaClient_1.default.project.findMany.mockResolvedValue(mockedProjectsData);
         const response = yield (0, supertest_1.default)(app_1.default).get("/projects");
         expect(response.status).toBe(200);
         expect(response.body).toEqual(mockedProjectsData);
         expect(response.body).toBeInstanceOf(Array);
-        expect(client_1.default.project.findMany).toHaveBeenCalledTimes(1);
+        expect(prismaClient_1.default.project.findMany).toHaveBeenCalledTimes(1);
     }));
     it("should throw an error when fails to return projects list", () => __awaiter(void 0, void 0, void 0, function* () {
         const MOCK_SERVER_ERR_MESSAGE = "Some server error";
-        client_1.default.project.findMany.mockRejectedValue(new Error(MOCK_SERVER_ERR_MESSAGE));
+        prismaClient_1.default.project.findMany.mockRejectedValue(new Error(MOCK_SERVER_ERR_MESSAGE));
         const response = yield (0, supertest_1.default)(app_1.default).get("/projects").expect(500);
         expect(response.status).toBe(500);
         expect(response.body).toEqual({

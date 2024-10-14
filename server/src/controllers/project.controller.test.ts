@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../app";
 
-jest.mock("../../prisma/client", () => ({
+jest.mock("../config/prismaClient", () => ({
   __esModule: true,
   default: {
     project: {
@@ -10,7 +10,7 @@ jest.mock("../../prisma/client", () => ({
   },
 }));
 
-import prisma from "../../prisma/client";
+import prisma from "../config/prismaClient";
 
 describe("GET /projects", () => {
   const mockedProjectsData = [

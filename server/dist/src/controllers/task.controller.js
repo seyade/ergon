@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTaskStatus = exports.createTask = exports.getTasks = void 0;
-const client_1 = __importDefault(require("../../prisma/client"));
+const prismaClient_1 = __importDefault(require("../config/prismaClient"));
 const getTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { projectId } = req.query;
     try {
-        const tasks = yield client_1.default.task.findMany({
+        const tasks = yield prismaClient_1.default.task.findMany({
             where: { projectId: Number(projectId) },
             include: {
                 author: true,
@@ -38,7 +38,7 @@ exports.getTasks = getTasks;
 const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, status, priority, tags, startDate, dueDate, points, projectId, authorUserId, assignedUserId, } = req.body;
     try {
-        const response = yield client_1.default.task.create({
+        const response = yield prismaClient_1.default.task.create({
             data: {
                 title,
                 description,
@@ -64,7 +64,7 @@ const updateTaskStatus = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const { taskId } = req.params;
     const { status } = req.body;
     try {
-        const updatedTask = yield client_1.default.task.update({
+        const updatedTask = yield prismaClient_1.default.task.update({
             where: { id: Number(taskId) },
             data: {
                 status,

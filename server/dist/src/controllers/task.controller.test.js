@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../app"));
-const client_1 = __importDefault(require("../../prisma/client"));
-jest.mock("../../prisma/client", () => ({
+const prismaClient_1 = __importDefault(require("../config/prismaClient"));
+jest.mock("../config/prismaClient", () => ({
     __esModule: true,
     default: {
         task: {
@@ -58,7 +58,7 @@ describe("GET /tasks", () => {
         jest.clearAllMocks();
     });
     it("should return a list of tasks related to a project", () => __awaiter(void 0, void 0, void 0, function* () {
-        client_1.default.task.findMany.mockResolvedValue(mockedTasksData);
+        prismaClient_1.default.task.findMany.mockResolvedValue(mockedTasksData);
         const projectId = 11;
         const response = yield (0, supertest_1.default)(app_1.default).get(`/tasks?projectId=${projectId}`);
         expect(response.status).toBe(200);
@@ -67,7 +67,7 @@ describe("GET /tasks", () => {
     it("should throw an error when it fails to return task list", () => __awaiter(void 0, void 0, void 0, function* () {
         const projectId = 11;
         const MOCK_SERVER_ERR_MESSAGE = "Some server error";
-        client_1.default.task.findMany.mockRejectedValue(new Error(MOCK_SERVER_ERR_MESSAGE));
+        prismaClient_1.default.task.findMany.mockRejectedValue(new Error(MOCK_SERVER_ERR_MESSAGE));
         const response = yield (0, supertest_1.default)(app_1.default).get(`/tasks?projectId=${projectId}`);
         expect(response.status).toBe(500);
         expect(response.body).toEqual({
