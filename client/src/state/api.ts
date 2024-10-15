@@ -16,12 +16,14 @@ export interface Project {
 //   Completed = "Completed",
 // }
 
-export type Status =
-  | "To Do"
-  | "Work In Progress"
-  | "Review"
-  | "QA"
-  | "Completed";
+// export type Status =
+//   | "To Do"
+//   | "Work In Progress"
+//   | "Review"
+//   | "QA"
+//   | "Completed";
+
+export type Status = "To Do" | "Work In Progress" | "Review" | "Completed";
 
 export type Priority = "Urgent" | "High" | "Medium" | "Low" | "Backlog";
 

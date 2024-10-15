@@ -1,16 +1,18 @@
-import { useGetTasksQuery, useUpdateTaskStatusMutation } from "@/state/api";
 import React from "react";
-import { DndProvider, useDrop } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { Task as TaskType, Status } from "@/state/api";
+import { useGetTasksQuery, useUpdateTaskStatusMutation } from "@/state/api";
+import TaskColumn from "@/app/projects/BoardView/TaskColumn";
 
 type BoardViewProps = {
   id: string;
   setIsNewTaskModalOpen: (isOpen: boolean) => void;
 };
 
-const taskStatus = ["To Do", "Work In Progress", "Review", "QA", "Completed"];
+// const taskStatus = ["To Do", "Work In Progress", "Review", "QA", "Completed"];
+
+const taskStatus = ["To Do", "Work In Progress", "Review", "Completed"];
 
 const BoardView = ({ id, setIsNewTaskModalOpen }: BoardViewProps) => {
   const {
@@ -25,9 +27,19 @@ const BoardView = ({ id, setIsNewTaskModalOpen }: BoardViewProps) => {
     updateTaskStatus({ taskId, status: toStatus });
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p className="text-2xl font-bold">Loading..</p>
+      </div>
+    );
 
-  if (error) return <div>Seem like something went wrong!</div>;
+  if (error)
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p className="text-2xl font-bold">Seems like something went wrong!</p>
+      </div>
+    );
 
   return (
     <div>
@@ -44,57 +56,6 @@ const BoardView = ({ id, setIsNewTaskModalOpen }: BoardViewProps) => {
           ))}
         </div>
       </DndProvider>
-    </div>
-  );
-};
-
-type TaskColumnProps = {
-  status: string;
-  tasks: TaskType[];
-  moveTask: (taskId: number, toStatus: string) => void;
-  setIsNewTaskModalOpen: (isOpen: boolean) => void;
-};
-
-const TaskColumn = ({
-  status,
-  tasks,
-  moveTask,
-  setIsNewTaskModalOpen,
-}: TaskColumnProps) => {
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: "task",
-    drop: (item: { id: number }) => moveTask(item.id, status),
-    collect: (monitor: any) => ({ isOver: !!monitor.isOver() }),
-  }));
-
-  const tasksCount = tasks.filter((task) => task.status === status).length;
-
-  const statusColour: any = {
-    "To Do": "#2563eb",
-    "Work In Progress": "#059669",
-    Review: "#d97706",
-    QA: "#ddd",
-    Completed: "#000",
-  };
-
-  return (
-    <div
-      ref={(instance) => {
-        drop(instance);
-      }}
-      className={`sl:py-4 rounded-lg py-2 xl:px-2 ${isOver ? "bg-blue-100 dark:bg-neutral-950" : ""}`}
-    >
-      <div className="mb-3 flex w-full">
-        <div
-          className={`w-2 !bg-[${statusColour[status]}] rounded-s-lg`}
-          style={{ backgroundColor: statusColour[status] }}
-        />
-        <div className="flex w-full items-center justify-between rounded-e-lg bg-white px-5 py-4 dark:bg-dark-secondary">
-          <h3 className="item-center flex text-lg font-semibold dark:text-white">
-            {status}
-          </h3>
-        </div>
-      </div>
     </div>
   );
 };
