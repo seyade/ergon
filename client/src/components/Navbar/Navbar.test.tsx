@@ -60,7 +60,7 @@ describe("Navbar", () => {
 
     fireEvent.click(moonIcon);
 
-    const sunIcon = container.querySelector(".lucide-moon") as HTMLElement;
+    const sunIcon = container.querySelector(".lucide-sun") as HTMLElement;
 
     expect(sunIcon).toBeInTheDocument();
   });
