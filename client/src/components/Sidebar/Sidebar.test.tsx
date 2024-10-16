@@ -82,7 +82,7 @@ describe("Sidebar", () => {
     renderSidebar();
 
     expect(screen.getByText("Ergon")).toBeInTheDocument();
-    expect(screen.getByText("MY TEAM")).toBeInTheDocument();
+    expect(screen.getByText("CAPSULE CORP TEAM")).toBeInTheDocument();
     expect(screen.getByText("Home")).toBeInTheDocument();
     expect(screen.getByText("Timeline")).toBeInTheDocument();
     expect(screen.getByText("Projects")).toBeInTheDocument();

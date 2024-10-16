@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import ProjectHeader from "@/app/projects/ProjectHeader";
+import ProjectHeader from "@/app/projects/ProjectHeader/ProjectHeader";
 import BoardView from "@/app/projects/BoardView";
 
 type ProjectProps = {
