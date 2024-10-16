@@ -1,8 +1,9 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/app/redux";
-import { setIsSidebarCollapsed } from "@/state";
-import { useGetProjectsQuery } from "@/state/api";
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   AlertCircle,
   AlertOctagon,
@@ -22,10 +23,10 @@ import {
   Users,
   X,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+
+import { useAppDispatch, useAppSelector } from "@/app/redux";
+import { setIsSidebarCollapsed } from "@/state";
+import { useGetProjectsQuery } from "@/state/api";
 
 type SidebarLinkProps = {
   href: string;
