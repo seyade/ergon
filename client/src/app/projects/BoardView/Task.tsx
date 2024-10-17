@@ -2,7 +2,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { useDrag } from "react-dnd";
 import { Task as TaskType, Status } from "@/state/api";
-import { Divide, EllipsisVertical } from "lucide-react";
+import { Divide, EllipsisVertical, MessageSquareMore } from "lucide-react";
 import { Span } from "next/dist/trace";
 
 type TaskProps = {
@@ -26,6 +26,7 @@ const Task = ({ task }: TaskProps) => {
     : "";
 
   const numberOfComments = (task.comments && task.comments.length) || 0;
+
   const PriorityTag = ({ priority }: { priority: TaskType["priority"] }) => (
     <div
       className={`rounded-full px-2 py-1 text-xs font-semibold ${priority === "Urgent" ? "bg-red-200 text-red-700" : priority === "High" ? "bg-yellow-200 text-yellow-700" : priority === "Medium" ? "bg-green-200 text-green-700" : priority === "Low" ? "bg-blue-200 text-blue-700" : "bg-gray-200 text-gray-700"}`}
@@ -102,6 +103,22 @@ const Task = ({ task }: TaskProps) => {
                 className="h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary"
               />
             )}
+            {task.author && (
+              <Image
+                key={task.author.userId}
+                src={`/${task.author.profilePictureUrl!}`}
+                alt={task.author.username}
+                width={400}
+                height={200}
+                className="h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary"
+              />
+            )}
+          </div>
+          <div className="flex items-center text-gray-500 dark:text-neutral-500">
+            <MessageSquareMore size={20} />
+            <span className="ml-1 text-sm dark:text-neutral-400">
+              {numberOfComments}
+            </span>
           </div>
         </div>
       </div>

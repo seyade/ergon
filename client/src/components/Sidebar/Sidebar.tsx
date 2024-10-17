@@ -123,9 +123,9 @@ const Sidebar = () => {
         >
           <span className="">Projects</span>
           {showProjects ? (
-            <ChevronUp className="h-5 w-5" />
-          ) : (
             <ChevronDown className="h-5 w-5" />
+          ) : (
+            <ChevronUp className="h-5 w-5" />
           )}
         </button>
 
