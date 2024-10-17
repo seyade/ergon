@@ -49,7 +49,7 @@ describe("Navbar", () => {
   it.skip("has light mode option", () => {
     const dispatch = jest.fn();
 
-    useDispatch.mockReturnValue(jest.fn());
+    (useDispatch() as jest.Mock).mockReturnValue(jest.fn());
 
     const { container } = render(
       <Provider store={mockStore}>
