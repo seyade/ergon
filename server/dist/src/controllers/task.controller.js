@@ -22,7 +22,7 @@ const getTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             include: {
                 author: true,
                 assignee: true,
-                comment: true,
+                comments: true,
                 attachments: true,
             },
         });

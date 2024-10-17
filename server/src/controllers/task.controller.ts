@@ -10,7 +10,7 @@ export const getTasks = async (req: Request, res: Response): Promise<void> => {
       include: {
         author: true,
         assignee: true,
-        comment: true,
+        comments: true,
         attachments: true,
       },
     });
