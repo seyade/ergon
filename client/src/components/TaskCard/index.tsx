@@ -33,7 +33,31 @@ const TaskCard = ({ task }: TaskCardProps) => {
         <strong>Title:</strong> {task.title}
       </p>
       <p>
-        <strong>Description:</strong> {task.description}
+        <strong>Description:</strong> {task.description || "-"}
+      </p>
+      <p>
+        <strong>Status:</strong> {task.status}
+      </p>
+      <p>
+        <strong>Priority:</strong> {task.priority}
+      </p>
+      <p>
+        <strong>Tags:</strong> {task.tags || "-"}
+      </p>
+      <p>
+        <strong>Start Date:</strong>{" "}
+        {task.startDate ? format(new Date(task.startDate), "P") : "-"}
+      </p>
+      <p>
+        <strong>Due Date:</strong>{" "}
+        {task.dueDate ? format(new Date(task.dueDate), "P") : "-"}
+      </p>
+      <p>
+        <strong>Author:</strong> {task.author ? task.author.username : "-"}
+      </p>
+      <p>
+        <strong>Assignee:</strong>{" "}
+        {task.assignee ? task.assignee.username : "Unassigned"}
       </p>
     </div>
   );

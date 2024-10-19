@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import TaskCard from "@/components/TaskCard";
 import { Task, useGetTasksQuery } from "@/state/api";
 import React from "react";
 
@@ -9,7 +10,7 @@ type ListViewProps = {
 
 const ListView = ({ id, setIsNewTaskModalOpen }: ListViewProps) => {
   const {
-    date: tasks,
+    data: tasks,
     error,
     isLoading,
   } = useGetTasksQuery({ projectId: Number(id) });
