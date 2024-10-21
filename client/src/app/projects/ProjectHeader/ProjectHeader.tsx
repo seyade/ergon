@@ -1,6 +1,6 @@
+import { ReactNode, useState } from "react";
 import Header from "@/components/Header";
 import { Clock, FilterIcon, Grid3X3, List, Share2, Table } from "lucide-react";
-import React, { useState } from "react";
 
 type ProjectHeaderProps = {
   activeTab: string;
@@ -9,7 +9,7 @@ type ProjectHeaderProps = {
 
 type TabButtonProps = {
   name: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   setActiveTab: (tab: string) => void;
   activeTab: string;
 };

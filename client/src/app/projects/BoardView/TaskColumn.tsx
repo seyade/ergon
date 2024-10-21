@@ -16,8 +16,6 @@ const TaskColumn = ({
   moveTask,
   setIsNewTaskModalOpen,
 }: TaskColumnProps) => {
-  console.log("TASKS:::", tasks);
-
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "task",
     drop: (item: { id: number }) => moveTask(item.id, status),
@@ -26,14 +24,7 @@ const TaskColumn = ({
 
   const tasksCount = tasks.filter((task) => task.status === status).length;
 
-  // const statusColour: any = {
-  //   "To Do": "#2563eb",
-  //   "Work In Progress": "#059669",
-  //   Review: "#d97706",
-  //   QA: "#ddd",
-  //   Completed: "#000",
-  // };
-
+  // TODO: Add QA column later
   const statusColour: any = {
     "To Do": "#2563eb",
     "Work In Progress": "#059669",

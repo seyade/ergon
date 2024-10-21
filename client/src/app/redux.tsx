@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import {
   TypedUseSelectorHook,
   useDispatch,
@@ -73,11 +73,7 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 // Provider
-export default function StoreProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function StoreProvider({ children }: { children: ReactNode }) {
   const storeRef = useRef<AppStore>();
 
   if (!storeRef.current) {

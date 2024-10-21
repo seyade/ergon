@@ -15,14 +15,15 @@ const ListView = ({ id, setIsNewTaskModalOpen }: ListViewProps) => {
     isLoading,
   } = useGetTasksQuery({ projectId: Number(id) });
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-2xl font-bold">Loading..</p>
       </div>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-2xl font-bold">
@@ -30,6 +31,7 @@ const ListView = ({ id, setIsNewTaskModalOpen }: ListViewProps) => {
         </p>
       </div>
     );
+  }
 
   return (
     <div className="px-4 pb-8 xl:px-6">
@@ -37,9 +39,7 @@ const ListView = ({ id, setIsNewTaskModalOpen }: ListViewProps) => {
         <Header title="List" />
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-        {tasks.map((task: Task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        {tasks?.map((task: Task) => <TaskCard key={task.id} task={task} />)}
       </div>
     </div>
   );

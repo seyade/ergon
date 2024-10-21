@@ -27,19 +27,21 @@ const BoardView = ({ id, setIsNewTaskModalOpen }: BoardViewProps) => {
     updateTaskStatus({ taskId, status: toStatus });
   };
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-2xl font-bold">Loading..</p>
       </div>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-2xl font-bold">Seems like something went wrong!</p>
       </div>
     );
+  }
 
   return (
     <div>
