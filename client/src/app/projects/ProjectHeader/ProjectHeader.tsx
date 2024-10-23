@@ -1,6 +1,15 @@
 import { ReactNode, useState } from "react";
+import {
+  Clock,
+  FilterIcon,
+  Grid3X3,
+  List,
+  PlusSquare,
+  Share2,
+  Table,
+} from "lucide-react";
 import Header from "@/components/Header";
-import { Clock, FilterIcon, Grid3X3, List, Share2, Table } from "lucide-react";
+import NewProjectModal from "@/app/projects/NewProjectModal";
 
 type ProjectHeaderProps = {
   activeTab: string;
@@ -19,8 +28,23 @@ const ProjectHeader = ({ activeTab, setActiveTab }: ProjectHeaderProps) => {
 
   return (
     <div className="px-4 xl:px-6">
+      <NewProjectModal
+        isOpen={isNewProjectModalOpen}
+        onClose={() => setIsNewProjectModalOpen(false)}
+      />
       <div className="py-6 lg:pb-4 lg:pt-8">
-        <Header title="Capsule Corp Spaceship" />
+        <Header
+          title="Capsule Corp Spaceship"
+          buttonComponent={
+            <button
+              className="flex items-center rounded-md bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
+              onClick={() => setIsNewProjectModalOpen(true)}
+            >
+              <PlusSquare className="m2-2 h-5 w-5" />
+              &nbsp;New Board
+            </button>
+          }
+        />
       </div>
 
       <div className="flex flex-wrap-reverse gap-2 border-y border-gray-200 pb-[8px] pt-2 dark:border-stroke-dark md:items-center">
