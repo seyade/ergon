@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
 import { useAppSelector } from "@/app/redux";
@@ -39,7 +39,9 @@ const Timeline = ({ id, setIsNewTaskModalOpen }: TimelineProps) => {
     );
   }, [tasks]);
 
-  const toggleViewModeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  const toggleViewModeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     setDisplayOptions((prev) => ({
       ...prev,
       viewMode: event.target.value as ViewMode,

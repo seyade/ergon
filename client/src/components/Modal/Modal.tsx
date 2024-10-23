@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import Header from "@/components/Header";
 
 type ModalProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
   title: string;

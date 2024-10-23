@@ -1,11 +1,16 @@
 import React from "react";
-import { screen, render, fireEvent } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { configureStore } from "@reduxjs/toolkit";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 
 import { api } from "@/state/api";
 import Navbar from "./Navbar";
+
+jest.mock("@reduxjs/toolkit/query/react", () => ({
+  ...jest.requireActual("@reduxjs/toolkit/query/react"),
+  fetchBaseQuery: jest.fn(() => jest.fn()),
+}));
 
 jest.mock("@/app/redux", () => ({
   useAppDispatch: jest.fn(),
@@ -46,22 +51,16 @@ describe("Navbar", () => {
     expect(icon).toBeInTheDocument();
   });
 
-  it.skip("has light mode option", () => {
-    const dispatch = jest.fn();
-
-    (useDispatch() as jest.Mock).mockReturnValue(jest.fn());
+  it("has light mode option", () => {
+    mockStore = createMockStore({ isDarkMode: true });
 
     const { container } = render(
       <Provider store={mockStore}>
         <Navbar />
       </Provider>,
     );
-    const moonIcon = container.querySelector(".lucide-moon") as HTMLElement;
-
-    fireEvent.click(moonIcon);
 
     const sunIcon = container.querySelector(".lucide-sun") as HTMLElement;
-
     expect(sunIcon).toBeInTheDocument();
   });
 

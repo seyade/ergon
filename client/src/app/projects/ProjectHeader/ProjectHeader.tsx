@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import {
   Clock,
   FilterIcon,
@@ -18,7 +18,7 @@ type ProjectHeaderProps = {
 
 type TabButtonProps = {
   name: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
   setActiveTab: (tab: string) => void;
   activeTab: string;
 };
