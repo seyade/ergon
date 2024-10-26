@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@hookform/resolvers": "^3.9.0",
     "@mui/material": "^6.1.1",
     "@mui/x-data-grid": "^7.18.0",
     "@reduxjs/toolkit": "^2.2.7",
@@ -30,7 +31,8 @@
     "react-hook-form": "^7.53.1",
     "react-redux": "^9.1.2",
     "recharts": "^2.12.7",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.25.4",

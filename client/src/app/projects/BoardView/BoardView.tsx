@@ -27,6 +27,11 @@ const BoardView = ({ id, setIsNewTaskModalOpen }: BoardViewProps) => {
     updateTaskStatus({ taskId, status: toStatus });
   };
 
+  /**
+   * TODO: maybe create a loading component
+   * Example: <Loading error={error} loading={isLoading} />
+   */
+
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">

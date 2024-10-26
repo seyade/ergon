@@ -8,24 +8,21 @@ export interface Project {
   endDate?: string;
 }
 
-// export enum Status {
-//   ToDo = "To Do",
-//   WorkInProgress = "Work In Progress",
-//   Review = "Review",
-//   QA = "QA",
-//   Completed = "Completed",
-// }
+export enum Status {
+  ToDo = "To Do",
+  WorkInProgress = "Work In Progress",
+  Review = "Review",
+  QA = "QA",
+  Completed = "Completed",
+}
 
-// export type Status =
-//   | "To Do"
-//   | "Work In Progress"
-//   | "Review"
-//   | "QA"
-//   | "Completed";
-
-export type Status = "To Do" | "Work In Progress" | "Review" | "Completed";
-
-export type Priority = "Urgent" | "High" | "Medium" | "Low" | "Backlog";
+export enum Priority {
+  Urgent = "Urgent",
+  High = "High",
+  Medium = "Medium",
+  Low = "Low",
+  Backlog = "Backlog",
+}
 
 export interface User {
   userId?: string;
