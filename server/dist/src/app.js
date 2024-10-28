@@ -11,6 +11,7 @@ const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const project_route_1 = __importDefault(require("./routes/project.route"));
 const task_route_1 = __importDefault(require("./routes/task.route"));
+const search_route_1 = __importDefault(require("./routes/search.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -26,4 +27,5 @@ app.get("/", (req, res) => {
 });
 app.use("/projects", project_route_1.default);
 app.use("/tasks", task_route_1.default);
+app.use("/search", search_route_1.default);
 exports.default = app;
