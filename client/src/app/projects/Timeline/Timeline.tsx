@@ -25,7 +25,7 @@ const Timeline = ({ id, setIsNewTaskModalOpen }: TimelineProps) => {
     locale: "en-GB",
   });
 
-  const gantTasks = useMemo(() => {
+  const ganttTasks = useMemo(() => {
     return (
       tasks?.map((task) => ({
         start: new Date(task.startDate as string),
@@ -88,7 +88,7 @@ const Timeline = ({ id, setIsNewTaskModalOpen }: TimelineProps) => {
       <div className="overflow-hidden rounded-md bg-white shadow dark:bg-dark-secondary dark:text-white">
         <div className="timeline">
           <Gantt
-            tasks={gantTasks}
+            tasks={ganttTasks}
             {...displayOptions}
             columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
             listCellWidth="100px"

@@ -5,6 +5,7 @@ import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
 import { useAppSelector } from "@/app/redux";
 import { useGetProjectsQuery } from "@/state/api";
+import Header from "@/components/Header";
 
 // need to rename this. Devs are bad at naming things for some reason
 type TaskTypeItems = "task" | "milestone" | "project";
@@ -18,19 +19,19 @@ const Timeline = () => {
     locale: "en-GB",
   });
 
-  const gantTasks = useMemo(() => {
+  const ganttProjects = useMemo(() => {
     return (
-      tasks?.map((task) => ({
-        start: new Date(task.startDate as string),
-        end: new Date(task.dueDate as string),
-        name: task.title,
-        id: `Task-${task.id}`,
-        type: "task" as TaskTypeItems,
-        progress: task.points ? (task.points / 10) * 100 : 0,
+      projects?.map((project) => ({
+        start: new Date(project.startDate as string),
+        end: new Date(project.endDate as string),
+        name: project.name,
+        id: `Project-${project.id}`,
+        type: "project" as TaskTypeItems,
+        progress: 50,
         isDisabled: false,
       })) || []
     );
-  }, [tasks]);
+  }, [projects]);
 
   const toggleViewModeChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -49,22 +50,20 @@ const Timeline = () => {
     );
   }
 
-  if (error) {
+  if (isError || !projects) {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-2xl font-bold">
-          Seems like something went wrong while fetching tasks!
+          Seems like something went wrong while fetching project!
         </p>
       </div>
     );
   }
 
   return (
-    <div className="px-4 xl:px-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 py-5">
-        <h1 className="me-2 text-lg font-bold dark:text-white">
-          Tasks Timeline
-        </h1>
+    <div className="max-w-full p-8">
+      <header className="mb-4 flex items-center justify-between">
+        <Header title="Project Timeline" />
         <div className="relative inline-block w-64">
           <select
             className="focus:shadow-outline block w-full appearance-none rounded border border-gray-400 bg-white px-4 py-2 pr-8 leading-tight shadow hover:border-gray-500 focus:outline-none dark:border-dark-secondary dark:bg-dark-secondary dark:text-white"
@@ -76,26 +75,19 @@ const Timeline = () => {
             <option value={ViewMode.Month}>Month</option>
           </select>
         </div>
-      </div>
+      </header>
 
       <div className="overflow-hidden rounded-md bg-white shadow dark:bg-dark-secondary dark:text-white">
         <div className="timeline">
           <Gantt
-            tasks={gantTasks}
+            tasks={ganttProjects}
             {...displayOptions}
             columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
             listCellWidth="100px"
-            barBackgroundColor={isDarkMode ? "#101214" : "#aeb8c2"}
-            barBackgroundSelectedColor={isDarkMode ? "#000" : "#9ba1a6"}
+            projectBackgroundColor={isDarkMode ? "#101214" : "#1f29317"}
+            projectProgressColor={isDarkMode ? "#1f2937" : "#aeb8c2"}
+            projectProgressSelectedColor={isDarkMode ? "#000" : "#9ba1a6"}
           />
-        </div>
-        <div className="px-4 pb-5 pt-1">
-          <button
-            className="flex items-center rounded bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
-            onClick={() => setIsNewTaskModalOpen(true)}
-          >
-            Add New Task
-          </button>
         </div>
       </div>
     </div>
