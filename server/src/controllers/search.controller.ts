@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../config/prismaClient";
 
-export const search = async (req: Request, res: Response) => {
+export const search = async (req: Request, res: Response): Promise<void> => {
   const { query } = req.query;
 
   try {
@@ -29,7 +29,9 @@ export const search = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ tasks, projects, users });
+    const results = { tasks, projects, users };
+
+    res.json(results);
   } catch (error: any) {
     res.status(500).json({ error: `Error doing the search: ${error.message}` });
   }

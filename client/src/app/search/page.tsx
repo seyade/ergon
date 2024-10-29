@@ -1,12 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import debounce from "lodash/debounce";
+import { debounce } from "lodash";
 import { useSearchQuery } from "@/state/api";
+import Header from "@/components/Header";
+import TaskCard from "@/components/TaskCard";
+import ProjectCard from "@/components/ProjectCard";
+import UserCard from "@/components/UserCard";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, isLoading, isError } = useSearchQuery(searchTerm, {
+  const {
+    data: searchResults,
+    isLoading,
+    isError,
+  } = useSearchQuery(searchTerm, {
     skip: searchTerm.length < 3,
   });
 
@@ -17,29 +25,61 @@ const Search = () => {
     500,
   );
 
+  const resultsCount = () => {
+    const results = Object.values(searchResults || {});
+    return results.reduce((acc, curr) => curr.length + acc, 0);
+  };
+
   useEffect(() => {
     return handleSearch.cancel;
   }, [handleSearch.cancel]);
 
-  if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-2xl font-bold">Loading..</p>
+  return (
+    <div className="p-8">
+      <Header title="Search" />
+      <div>
+        <input
+          type="text"
+          placeholder="Search"
+          className="w-1/2 rounded border p-3 shadow"
+          onChange={handleSearch}
+        />
       </div>
-    );
-  }
 
-  if (isError) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <p className="text-2xl font-bold">
-          Seems like something went wrong while fetching project!
-        </p>
+      <div className="p-5">
+        {isLoading && <p>Loading...</p>}
+        {isError && (
+          <p>Seems like something went wrong while fetching results!</p>
+        )}
+
+        {searchResults && <strong>{resultsCount()} Results</strong>}
+        {!isLoading && !isError && searchResults && (
+          <div>
+            {searchResults.tasks && searchResults.tasks.length > 0 && (
+              <h2>Tasks</h2>
+            )}
+            {searchResults.tasks?.map((task) => (
+              <TaskCard key={task.id} task={task} />
+            ))}
+
+            {searchResults.projects && searchResults.projects?.length > 0 && (
+              <h2>Projects</h2>
+            )}
+            {searchResults.projects?.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+
+            {searchResults.users && searchResults.users?.length > 0 && (
+              <h2>Users</h2>
+            )}
+            {searchResults.users?.map((user) => (
+              <UserCard key={user.userId} user={user} />
+            ))}
+          </div>
+        )}
       </div>
-    );
-  }
-
-  return <div>Search</div>;
+    </div>
+  );
 };
 
 export default Search;
