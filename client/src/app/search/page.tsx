@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { useSearchQuery } from "@/state/api";
 import Header from "@/components/Header";
 import TaskCard from "@/components/TaskCard";
