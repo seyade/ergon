@@ -8,6 +8,7 @@ import morgan from "morgan";
 import projectRoutes from "./routes/project.route";
 import taskRoutes from "./routes/task.route";
 import searchRoutes from "./routes/search.route";
+import userRoutes from "./routes/user.route";
 
 dotenv.config();
 
@@ -29,5 +30,6 @@ app.get("/", (req, res) => {
 app.use("/projects", projectRoutes);
 app.use("/tasks", taskRoutes);
 app.use("/search", searchRoutes);
+app.use("/users", userRoutes);
 
 export default app;
