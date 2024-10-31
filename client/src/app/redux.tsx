@@ -25,12 +25,15 @@ import { api } from "@/state/api";
 // For persistence in localstorage
 const createNoopStorage = () => ({
   getItem(_key: any) {
+    console.log(_key);
     return Promise.resolve(null);
   },
   setItem(_key: any, value: any) {
+    console.log(_key);
     return Promise.resolve(value);
   },
   removeItem(_key: any) {
+    console.log(_key);
     return Promise.resolve();
   },
 });

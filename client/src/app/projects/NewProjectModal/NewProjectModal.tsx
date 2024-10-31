@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateProjectMutation } from "@/state/api";
 import Modal from "@/components/Modal";
 import { formatISO } from "date-fns";
@@ -9,12 +11,32 @@ type NewProjectModalProps = {
   onClose: () => void;
 };
 
+export const projectSchema = z.object({
+  projectName: z
+    .string()
+    .min(3, "Project name must have at least 3 letters.")
+    .max(50, "Project name must have a max of 50 letters."),
+  description: z.string().max(3, "Description must max of 250 letters"),
+  startDate: z.string().refine((date) => new Date(date) >= new Date(), {
+    message: "Project start date must in the future",
+  }),
+  endDate: z.string().refine((date) => new Date(date) >= new Date(), {
+    message: "Project end date must in the future",
+  }),
+});
+
+// type ProjectFormValues = z.infer<typeof projectSchema>;
+
 function NewProjectModal({ isOpen, onClose }: NewProjectModalProps) {
   const [createProject, { isLoading }] = useCreateProjectMutation();
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const {} = useForm({
+    resolver: zodResolver(projectSchema),
+  });
 
   const handleSubmit = async () => {
     if (!projectName || !startDate || !endDate) return;

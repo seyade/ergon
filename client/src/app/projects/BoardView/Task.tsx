@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { format } from "date-fns";
 import { useDrag } from "react-dnd";
-import { Task as TaskType, Status } from "@/state/api";
+import { Task as TaskType } from "@/state/api";
 import { EllipsisVertical, MessageSquareMore } from "lucide-react";
 
 type TaskProps = {

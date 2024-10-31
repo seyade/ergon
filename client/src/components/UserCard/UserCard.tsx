@@ -1,5 +1,5 @@
 import React from "react";
-import { Project, User } from "@/state/api";
+import { User } from "@/state/api";
 import Image from "next/image";
 
 type UserProps = {

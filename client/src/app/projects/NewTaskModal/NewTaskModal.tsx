@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Priority, Status, useCreateTaskMutation } from "@/state/api";
 import Modal from "@/components/Modal";
 import { formatISO } from "date-fns";
@@ -9,6 +11,31 @@ type NewTaskModalProps = {
   onClose: () => void;
   projectId: string;
 };
+
+export const taskSchema = z.object({
+  taskTitle: z
+    .string()
+    .min(3, "Project name must have at least 3 letters.")
+    .max(50, "Project name must have a max of 50 letters."),
+  description: z.string().max(3, "Description must max of 250 letters"),
+  status: z.string().refine((status) => {
+    return status.match(/To Do|Work In Progress|Review|Completed/);
+  }),
+  priority: z.string().refine((status) => {
+    return status.match(/Urgent|High|Medium|Low|Urgent/);
+  }),
+  tags: z.string().max(3),
+  startDate: z.string().refine((date) => new Date(date) >= new Date(), {
+    message: "Project start date must in the future",
+  }),
+  dueDate: z.string().refine((date) => new Date(date) >= new Date(), {
+    message: "Project end date must in the future",
+  }),
+  authorUserId: z.string(),
+  assignedUserId: z.string(),
+});
+
+// type TaskFormValues = z.infer<typeof taskSchema>;
 
 function NewTaskModal({ isOpen, onClose, projectId }: NewTaskModalProps) {
   const [createTask, { isLoading }] = useCreateTaskMutation();
@@ -21,6 +48,10 @@ function NewTaskModal({ isOpen, onClose, projectId }: NewTaskModalProps) {
   const [dueDate, setDueDate] = useState("");
   const [authorUserId, setAuthorUserId] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
+
+  const {} = useForm({
+    resolver: zodResolver(taskSchema),
+  });
 
   const handleSubmit = async () => {
     if (!taskTitle || !authorUserId) return;

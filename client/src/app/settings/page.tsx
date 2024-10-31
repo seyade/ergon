@@ -1,13 +1,14 @@
 "use client";
 
 import Header from "@/components/Header";
-import React, { useState } from "react";
+import React from "react";
 
 const Settings = () => {
-  const [username, setUsername] = useState("jamesbond");
-  const [email, setEmail] = useState("james.bond@mi5.io");
-  const [teamName, setTeamName] = useState("Secret Agency");
-  const [roleName, setRoleName] = useState("Agent");
+  // TODO: remember to add useState when uncommenting
+  // const [username, setUsername] = useState("jamesbond");
+  // const [email, setEmail] = useState("james.bond@mi5.io");
+  // const [teamName, setTeamName] = useState("Secret Agency");
+  // const [roleName, setRoleName] = useState("Agent");
 
   const userSettings = {
     username: "jamesbond",

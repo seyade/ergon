@@ -37,7 +37,7 @@ jest.mock("@/app/redux", () => ({
 const createMockStore = (initialState = {}) => {
   return configureStore({
     reducer: {
-      global: (state = initialState, action) => state,
+      global: (state = initialState) => state,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -55,6 +55,7 @@ describe("Sidebar", () => {
 
     (usePathname as jest.Mock).mockReturnValue("/");
 
+    /* eslint-disable-no-require-imports */
     (require("@/app/redux").useAppSelector as jest.Mock).mockImplementation(
       (selector) => selector(mockStore.getState()),
     );
