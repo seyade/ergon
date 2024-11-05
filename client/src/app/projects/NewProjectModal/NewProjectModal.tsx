@@ -38,7 +38,7 @@ function NewProjectModal({ isOpen, onClose }: NewProjectModalProps) {
     resolver: zodResolver(projectSchema),
   });
 
-  const onSubmit = async (formData: ProjectFormformData) => {
+  const onSubmit = async (formData: ProjectFormData) => {
     const { projectName, startDate, endDate, description } = formData;
 
     if (!projectName || !startDate || !endDate) return;
