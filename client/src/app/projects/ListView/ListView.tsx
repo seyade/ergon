@@ -11,7 +11,7 @@ type ListViewProps = {
 const ListView = ({ id, setIsNewTaskModalOpen }: ListViewProps) => {
   const {
     data: tasks,
-    error,
+    isError,
     isLoading,
   } = useGetTasksQuery({ projectId: Number(id) });
 
@@ -23,7 +23,7 @@ const ListView = ({ id, setIsNewTaskModalOpen }: ListViewProps) => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="text-2xl font-bold">
