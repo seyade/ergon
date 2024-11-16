@@ -24,7 +24,7 @@ app.use(cors());
 
 // TODO: Routes
 app.get("/", (req, res) => {
-  res.send({ message: "Welecome to Ergon", version: "0.0.1" });
+  res.send({ message: "Welcome to Ergon", version: "0.0.1" });
 });
 
 app.use("/projects", projectRoutes);
